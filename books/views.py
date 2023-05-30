@@ -1,15 +1,56 @@
-from django.shortcuts import render 
+from django.shortcuts import render,redirect
 from django.views.generic import ListView, DetailView
 from django.views.generic.edit import CreateView
 from django.contrib.auth.mixins import LoginRequiredMixin 
-from .models import Book, Order
+from .models import Book, Order,Contact
 from django.urls import reverse_lazy
 from django.db.models import Q # for search method
 from django.http import JsonResponse
 import json
 from django.views.generic import TemplateView
+from django.contrib.auth.mixins import LoginRequiredMixin
+from django.views.generic import UpdateView
+from django.urls import reverse_lazy
+from django.views.generic import DeleteView
 
 
+
+def delete_book(request,pk):
+    book = Book.objects.get(id=pk)
+    book.delete()
+    return redirect('http://127.0.0.1:8000/manage/')
+
+
+def update_book(request, pk):
+    book = Book.objects.get(id=pk)
+
+    if request.method == 'POST':
+        title = request.POST.get('title')
+        author = request.POST.get('author')
+        description = request.POST.get('description')
+        price = request.POST.get('price')
+        book_available = request.POST.get('book_available')
+        if book_available=="on":
+            f=True
+        else:
+            f=False
+
+        if "image" in request.FILES:
+            image = request.FILES["image"]
+            book.image = image
+
+        book.title = title
+        book.author = author
+        book.description = description
+        book.price = price
+        book.book_available=f
+
+        book.save()
+
+        return redirect('http://127.0.0.1:8000/manage/')
+
+    context = {'book': book}
+    return render(request, 'update_book.html', context)
 
 
 class AddBookView(LoginRequiredMixin, CreateView):
@@ -70,3 +111,30 @@ def paymentComplete(request):
 
 class AboutUsView(TemplateView):
     template_name = 'aboutus.html'
+
+class ContactUsView(TemplateView):
+    template_name = 'contactus.html'
+    fields=['name','email','request']
+
+    def post(self, request, *args, **kwargs):
+        name = request.POST.get('name')
+        email = request.POST.get('email')
+        reuest = request.POST.get('request')  # Add this line
+
+
+        return render(request, 'contactus.html')
+
+
+class ManageListView(LoginRequiredMixin, ListView):
+    model = Book
+    template_name = 'manage.html'
+    login_url = 'login'
+
+    def get_queryset(self):
+        queryset = super().get_queryset()
+        # Filter the books by the logged-in user
+        queryset = queryset.filter(user=self.request.user)
+        return queryset
+
+
+

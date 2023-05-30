@@ -58,14 +58,12 @@
         <li class="nav-item">
           <a class="navbar-brand"  href="{% url 'list' %}">Home</a>
         </li>
-<!--        <li class="nav-item">-->
-<!--          <a class="navbar-brand" href="#">Profile</a>-->
-<!--        </li>-->
         <li class="nav-item">
           <a class="navbar-brand" href="{% url 'add_book' %}">Sell Books</a>
         </li>
 
         {% if user.is_authenticated %}
+        <a class="navbar-brand" href="{% url 'manage' %}">Manage Books</a>
         <a class="navbar-brand" href="{% url 'logout' %}">Log Out</a>
         {% endif %}
     </div>
@@ -75,12 +73,12 @@
   </div>
 
 <!--     search css -->
-<!--    <form class="search" action="{% url 'search_results' %}" method="get">-->
-<!--      <script src="https://kit.fontawesome.com/a076d05399.js"></script>-->
-<!--      <link rel="stylesheet" href="{% static 'css/base.css' %}">-->
-<!--      <i class="fas fa-search"></i>-->
-<!--      <input name="q" class="fas fa-search" type="text" autocomplete="off" placeholder="click to search">-->
-<!--    </form>-->
+    <form class="search" action="{% url 'search_results' %}" method="get">
+      <script src="https://kit.fontawesome.com/a076d05399.js"></script>
+      <link rel="stylesheet" href="{% static 'css/base.css' %}">
+      <i class="fas fa-search"></i>
+      <input name="q" class="fas fa-search" type="text" autocomplete="off" placeholder="click to search">
+    </form>
 
   </nav><br>
 
