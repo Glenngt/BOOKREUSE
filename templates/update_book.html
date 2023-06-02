@@ -40,6 +40,18 @@
                 <input type="checkbox" class="form-check-input" id="book_available" name="book_available" {% if book.book_available %}checked{% endif %}>
                 <label class="form-check-label" for="book_available">Book Availability</label>
             </div>
+             <div class="form-group">
+                <label for="seller">Seller:</label>
+                <input type="text" class="form-control" id="author" name="seller" value="{{ book.seller }}" >
+            </div>
+            <div class="form-group">
+                <label for="seller">Contact:</label>
+                <input type="text" class="form-control" id="author" name="seller_contact" value="{{ book.seller_contact }}" >
+            </div>
+            <div class="form-group">
+                <label for="seller">Email:</label>
+                <input type="text" class="form-control" id="author" name="seller_email" value="{{ book.seller_email }}" >
+            </div>
             <button type="submit" class="btn btn-primary">Update</button>
         </form>
     </div>

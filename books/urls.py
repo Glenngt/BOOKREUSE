@@ -14,7 +14,6 @@ urlpatterns = [
     path('complete/', paymentComplete, name = 'complete'),
     path('search/', SearchResultsListView.as_view(), name = 'search_results'),
     path('aboutus/', AboutUsView.as_view(), name='aboutus'),
-    path('contactus/',ContactUsView.as_view(),name="contactus"),
     path('manage/',ManageListView.as_view(),name="manage"),
     path('update/<int:pk>',update_book),
     path('delete/<int:pk>',delete_book)

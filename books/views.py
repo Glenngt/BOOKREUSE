@@ -29,6 +29,9 @@ def update_book(request, pk):
         author = request.POST.get('author')
         description = request.POST.get('description')
         price = request.POST.get('price')
+        seller = request.POST.get('seller')
+        seller_contact = request.POST.get('seller_contact')
+        seller_email = request.POST.get('seller_email')
         book_available = request.POST.get('book_available')
         if book_available=="on":
             f=True
@@ -43,6 +46,9 @@ def update_book(request, pk):
         book.author = author
         book.description = description
         book.price = price
+        book.seller = seller
+        book.seller_contact = seller_contact
+        book.seller_email = seller_email
         book.book_available=f
 
         book.save()
@@ -56,7 +62,7 @@ def update_book(request, pk):
 class AddBookView(LoginRequiredMixin, CreateView):
     model = Book
     template_name = 'add_book.html'
-    fields = ['title', 'author', 'description', 'price', 'image','book_available']
+    fields = ['title', 'author', 'description', 'price', 'image','book_available','seller','seller_contact','seller_email']
     login_url = 'login'
     success_url = reverse_lazy('list')
 

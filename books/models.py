@@ -20,6 +20,9 @@ class Book(models.Model):
     image = models.ImageField(upload_to="book",null=True)
     book_available = models.BooleanField(default=False)
     user = models.ForeignKey(User, on_delete=models.CASCADE, null=True, blank=True, default=None)
+    seller=models.CharField(max_length=100,null=True)
+    seller_contact=models.CharField(max_length=100,null=True)
+    seller_email=models.CharField(max_length=100,null=True)
 
     def __str__(self):
         return self.title
